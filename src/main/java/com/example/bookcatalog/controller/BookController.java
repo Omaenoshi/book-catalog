@@ -5,10 +5,7 @@ import com.example.bookcatalog.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/books")
@@ -24,5 +21,11 @@ public class BookController {
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
         Book createdBook = bookService.createBook(book);
         return new ResponseEntity<>(createdBook, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<Book> updateBook(@RequestBody Book book) {
+        Book updatedBook = bookService.updateBook(book.getId(), book);
+        return new ResponseEntity<>(updatedBook, HttpStatus.OK);
     }
 }

@@ -25,4 +25,6 @@ public class GenreController {
         Genre createdGenre = genreService.createGenre(genre);
         return new ResponseEntity<>(createdGenre, HttpStatus.CREATED);
     }
+
+
 }

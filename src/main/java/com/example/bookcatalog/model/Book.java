@@ -12,6 +12,7 @@ public class Book {
     private Long id;
     private String name;
     private String description;
+    private String author;
     @ManyToMany
     @JoinTable(
             name = "book_genre",
@@ -22,10 +23,11 @@ public class Book {
 
     public Book() {}
 
-    public Book(Long id, String name, String description, Set<Genre> genres) {
+    public Book(Long id, String name, String description, String author, Set<Genre> genres) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.author = author;
         this.genres = genres;
     }
 
@@ -47,6 +49,14 @@ public class Book {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public void setDescription(String description) {
