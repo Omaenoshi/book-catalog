@@ -1,5 +1,6 @@
 package com.example.bookcatalog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -12,13 +13,13 @@ public class Genre {
     private Long id;
     private String name;
     @ManyToMany(mappedBy = "genres")
-    private Set<Book> books = new HashSet<>();
+    @JsonIgnore
+    private Set<Book> books;
 
     public Genre() {}
-    public Genre(Long id, String name, Set<Book> books) {
+    public Genre(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.books = books;
     }
 
     public Long getId() {

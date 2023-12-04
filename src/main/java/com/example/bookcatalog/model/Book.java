@@ -19,16 +19,15 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    private Set<Genre> genres = new HashSet<>();
+    private Set<Genre> genres;
 
     public Book() {}
 
-    public Book(Long id, String name, String description, String author, Set<Genre> genres) {
+    public Book(Long id, String name, String description, String author) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.author = author;
-        this.genres = genres;
     }
 
     public Long getId() {

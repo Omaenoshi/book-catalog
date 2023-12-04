@@ -1,24 +1,29 @@
 package com.example.bookcatalog.service;
 
 import com.example.bookcatalog.model.Book;
+import com.example.bookcatalog.model.Genre;
 import com.example.bookcatalog.repository.BookRepository;
+import com.example.bookcatalog.repository.GenreRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class BookService {
     private final BookRepository bookRepository;
+    private final GenreRepository genreRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, GenreRepository genreRepository) {
         this.bookRepository = bookRepository;
+        this.genreRepository = genreRepository;
     }
 
-    public Book createBook(Book book) {
+    public Book createBook(Book book) throws EntityNotFoundException{
         return bookRepository.save(book);
     }
     public Book updateBook(Long bookId, Book updatedBook) {

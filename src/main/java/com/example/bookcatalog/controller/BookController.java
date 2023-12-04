@@ -2,6 +2,7 @@ package com.example.bookcatalog.controller;
 
 import com.example.bookcatalog.model.Book;
 import com.example.bookcatalog.service.BookService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,13 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book) {
-        Book createdBook = bookService.createBook(book);
-        return new ResponseEntity<>(createdBook, HttpStatus.CREATED);
+    public ResponseEntity<?> createBook(@RequestBody Book book) {
+        try {
+            Book createdBook = bookService.createBook(book);
+            return new ResponseEntity<>(createdBook, HttpStatus.CREATED);
+        } catch (EntityNotFoundException exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping
