@@ -1,6 +1,7 @@
 package com.example.bookcatalog.controller;
 
 import com.example.bookcatalog.model.Book;
+import com.example.bookcatalog.model.BookLoan;
 import com.example.bookcatalog.model.User;
 import com.example.bookcatalog.service.BookLoanService;
 import com.example.bookcatalog.service.BookService;
@@ -76,4 +77,13 @@ public class BookController {
         }
     }
 
+    @GetMapping("/{id}/history")
+    public ResponseEntity<List<BookLoan>> getBookHistoryByBookId(@PathVariable Long id) {
+        try {
+            List<BookLoan> bookHistory = bookService.getBookHistoryByBookId(id);
+            return ResponseEntity.ok(bookHistory);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.bookcatalog.service;
 
 import com.example.bookcatalog.model.Book;
+import com.example.bookcatalog.model.BookLoan;
+import com.example.bookcatalog.repository.BookLoanRepository;
 import com.example.bookcatalog.repository.BookRepository;
 import com.example.bookcatalog.repository.GenreRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,12 +15,12 @@ import java.util.Optional;
 @Service
 public class BookService {
     private final BookRepository bookRepository;
-    private final GenreRepository genreRepository;
+    private final BookLoanRepository bookLoanRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository, GenreRepository genreRepository) {
+    public BookService(BookRepository bookRepository, BookLoanRepository bookLoanRepository) {
         this.bookRepository = bookRepository;
-        this.genreRepository = genreRepository;
+        this.bookLoanRepository = bookLoanRepository;
     }
 
     public Book createBook(Book book) throws EntityNotFoundException{
@@ -49,5 +51,12 @@ public class BookService {
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
 
         bookRepository.delete(book);
+    }
+
+    public List<BookLoan> getBookHistoryByBookId(Long bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with ID: " + bookId));
+
+        return bookLoanRepository.findByBookId(book.getId());
     }
 }

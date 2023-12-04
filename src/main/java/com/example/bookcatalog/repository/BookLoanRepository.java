@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface BookLoanRepository extends JpaRepository<BookLoan, Long> {
     BookLoan findByUserAndBookIdAndReturnedDateIsNull(User user, Long bookId);
+    List<BookLoan> findByBookId(Long bookId);
 }
