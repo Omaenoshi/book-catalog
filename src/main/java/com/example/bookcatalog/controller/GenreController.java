@@ -1,14 +1,15 @@
 package com.example.bookcatalog.controller;
 
+import com.example.bookcatalog.model.Book;
 import com.example.bookcatalog.model.Genre;
 import com.example.bookcatalog.service.GenreService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/genres")
@@ -26,5 +27,13 @@ public class GenreController {
         return new ResponseEntity<>(createdGenre, HttpStatus.CREATED);
     }
 
-
+    @GetMapping("/{id}/books")
+    public ResponseEntity<List<Book>> getBooksByGenreId(@PathVariable Long id) {
+        try {
+            List<Book> books = genreService.getBooksByGenreId(id);
+            return ResponseEntity.ok(books);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.bookcatalog.service;
 
 import com.example.bookcatalog.model.Book;
-import com.example.bookcatalog.model.Genre;
 import com.example.bookcatalog.repository.BookRepository;
 import com.example.bookcatalog.repository.GenreRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class BookService {
