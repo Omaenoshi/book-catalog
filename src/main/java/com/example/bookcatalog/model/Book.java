@@ -10,9 +10,13 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
     private String description;
+    @Column(nullable = false)
     private String author;
+    @Column(nullable = false)
+    private int availableCopies;
     @ManyToMany
     @JoinTable(
             name = "book_genre",
@@ -23,11 +27,12 @@ public class Book {
 
     public Book() {}
 
-    public Book(Long id, String name, String description, String author) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.author = author;
+    public int getAvailableCopies() {
+        return availableCopies;
+    }
+
+    public void setAvailableCopies(int availableCopies) {
+        this.availableCopies = availableCopies;
     }
 
     public Long getId() {
@@ -81,5 +86,13 @@ public class Book {
             genres.remove(genre);
             genre.removeBook(this);
         }
+    }
+
+    public void decreaseAvailableCopies() {
+        availableCopies--;
+    }
+
+    public void increaseAvailableCopies() {
+        availableCopies++;
     }
 }
